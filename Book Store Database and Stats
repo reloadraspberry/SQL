@@ -1,0 +1,34 @@
+--Create a book store database
+
+CREATE TABLE books (id INTEGER PRIMARY KEY, name TEXT, quality TEXT, quantity INTEGER, rating INTEGER, price INTEGER);
+
+INSERT INTO books VALUES (1, "The Stand", "poor", 12, 9, 25);
+INSERT INTO books VALUES (2, "Dune", "great", 27, 7, 19);
+INSERT INTO books VALUES (3, "The Haar", "good", 1, 3, 10);
+INSERT INTO books VALUES (4, "Warm Bodies", "average", 4, 6, 15);
+INSERT INTO books VALUES (5, "The Troop", "great", 3, 6, 19);
+INSERT INTO books VALUES (6, "Waif", "poor", 2, 2, 2);
+INSERT INTO books VALUES (7, "Upgrade", "good", 17, 2, 17);
+INSERT INTO books VALUES (8, "Rules of Prey", "average", 10, 7, 14);
+INSERT INTO books VALUES (9, "Swan Song", "good", 12, 6, 12);
+INSERT INTO books VALUES (10, "Jogger's Moon", "great", 25, 8, 19);
+INSERT INTO books VALUES (11, "Gerald's Game", "average", 57, 4, 20);
+INSERT INTO books VALUES (12, "Invisible Monsters", "great", 12, 9, 6);
+INSERT INTO books VALUES (13, "Shine", "poor", 2, 1, 14);
+INSERT INTO books VALUES (14, "Love After Death", "great", 90, 3, 15);
+INSERT INTO books VALUES (15, "It", "good", 3, 4, 5);
+
+--display the database ordered by price
+SELECT * FROM books
+ORDER BY price desc
+
+--what is the avg quantity of good quality books?
+SELECT AVG(quantity) "avg good book quantity"
+FROM books
+WHERE quality = 'good'
+
+--what are the most 5 highest rated books? 
+SELECT name, price, rating
+FROM books
+order by rating desc
+limit 5; 
