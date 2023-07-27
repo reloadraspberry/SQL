@@ -27,7 +27,7 @@ SELECT AVG(quantity) "avg good book quantity"
 FROM books
 WHERE quality = 'good'
 
---what are the most 5 highest rated books? 
+--what are the 5 highest rated books? 
 SELECT name, price, rating
 FROM books
 order by rating desc
