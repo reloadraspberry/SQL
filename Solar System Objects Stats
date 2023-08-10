@@ -1,3 +1,4 @@
+--Create advanced SELECT queries to aggregate data to learn about solar system objects
 /* 
 Solar system objects
 Adapted from: http://en.wikipedia.org/wiki/List_of_Solar_System_objects_by_size
@@ -53,29 +54,35 @@ INSERT INTO solar_system_objects(body,mean_radius,mean_radius_rel,volume,volume_
 
 SELECT * FROM solar_system_objects;
 
+--what is the avg mass of solar system objects with density > 2?
 SELECT AVG(mass) "avg mass of solar system objects with density > 2"
 FROM solar_system_objects
 WHERE density > 2;
 
+--what is the maximum volume of objects identified as planets?
 SELECT MAX(volume) "maximum volume of objects identified as planets"
 FROM solar_system_objects
 WHERE type_of_object LIKE "%planet%";
 
+--what is the min surface gravity of satellite type solar objects?
 SELECT MIN(surface_gravity) "min surface gravity of satellite type solar objects"
 FROM solar_system_objects
 WHERE type_of_object LIKE "%satellite%";
 
+--what are the solar objects that have a total density > 3 ordered from highest to lowest?
 SELECT body, SUM(density) AS total_density
 FROM solar_system_objects
     GROUP BY body
     HAVING total_density > 3
     ORDER BY total_density DESC
     ;
-    
+
+--how many solar objects could humans survive based on surface gravity alone?
 /* human gravity survivability*/
 SELECT COUNT(*) AS "human gravity survivability" FROM solar_system_objects WHERE
     surface_gravity_rel < 2 AND surface_gravity_rel > .2;
-    
+
+--order solar objects by their ability to support humans by surface gravity 
 /* CASE */
 SELECT body, surface_gravity_rel,
     CASE
@@ -84,8 +91,10 @@ SELECT body, surface_gravity_rel,
         WHEN surface_gravity_rel < .2 THEN "too low"
         ELSE "NULL"
     END as "human_gravity_survivability"
-FROM solar_system_objects;
-    
+FROM solar_system_objects
+ORDER BY human_gravity_survivability;
+
+--number of solar objects in each category of too high, survivable, too low, or NULL in human gravity survivability
 SELECT COUNT(*) AS "number of solar objects",
     CASE
         WHEN surface_gravity_rel > 2 THEN "too high"
@@ -97,10 +106,13 @@ FROM solar_system_objects
 GROUP BY human_gravity_survivability
 ORDER BY "number of solar objects" ASC;
 
-SELECT body FROM solar_system_objects;
+--order solar system objects alphabetically by body
+SELECT body FROM solar_system_objects ORDER BY body ASC;
 
+--which solar system bodies have surface_gravity_rel > 2 and is a planet (gas giant) has rings?
 /* AND */
 SELECT body FROM solar_system_objects WHERE surface_gravity_rel > 2 AND type_of_object= "planet (gas giant) has rings";
 
+--which solar system bodies have surface_gravity_rel > 2 or is a planet (gas giant) has rings
 /* OR */
 SELECT body FROM solar_system_objects WHERE surface_gravity_rel > 2 OR type_of_object= "planet (gas giant) has rings";
