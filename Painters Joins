@@ -1,0 +1,81 @@
+CREATE TABLE painters (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    country TEXT);
+    
+INSERT INTO painters (name, country) VALUES ("Leonardo da Vinci", "Italy");
+INSERT INTO painters (name, country) VALUES ("Frida Kahlo", "Mexico");
+INSERT INTO painters (name, country) VALUES ("Claude Monet", "France");
+INSERT INTO painters (name, country) VALUES ("Salvador Dalí", "Spain");
+INSERT INTO painters (name, country) VALUES ("Vincent van Gogh", "Netherlands");
+INSERT INTO painters (name, country) VALUES ("Georgia O'Keeffe", "USA");
+INSERT INTO painters (name, country) VALUES ("Jackson Pollock", "USA");
+INSERT INTO painters (name, country) VALUES ("Andy Warhol", "USA");
+INSERT INTO painters (name, country) VALUES ("Pablo Picasso", "Spain");
+INSERT INTO painters (name, country) VALUES ("Johannes Vermeer", "Netherlands");
+INSERT INTO painters (name, country) VALUES ("Grant Wood", "USA");
+INSERT INTO painters (name, country) VALUES ("Sandro Botticelli", "Italy");
+INSERT INTO painters (name, country) VALUES ("Edvard Munch", "Norway");
+INSERT INTO painters (name, country) VALUES ("Michelangelo", "Italy");
+INSERT INTO painters (name, country) VALUES ("Yayoi Kusama", "Japan");
+
+CREATE TABLE paintings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    painter_id INTEGER,
+    name TEXT,
+    year INTEGER);
+
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (1, "Mona Lisa", 1503);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (2, "The Two Fridas", 1939);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (3, "The Artist's Garden at Giverny", 1900);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (4, "The Persistence of Memory", 1931);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (5, "Café Terrace at Night", 1888);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (6, "Red Canna", 1923);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (7, "Blue Poles", 1952);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (2, "The Broken Column", 1944);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (9, "The Old Guitarist", 1904);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (10, "Girl with a Pearl Earring", 1665);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (11, "American Gothic", 1930);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (13, "Anxiety", 1894);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (5, "The Starry Night", 1889);
+INSERT INTO paintings (painter_id, name, year)
+    VALUES (15, "Pumpkin", 1990);
+
+--what are the names of the paintings created by the painters? 
+SELECT painters.name, paintings.name AS painting FROM painters
+    JOIN paintings
+    ON painters.id = paintings.painter_id;
+    
+--what are the paintings by Frida Kahlo?
+SELECT painters.name, paintings.name AS painting FROM painters
+    JOIN paintings
+    ON painters.id = paintings.painter_id
+    WHERE painters.name = "Frida Kahlo";
+
+--what year and country were the paintings created ordered by country?
+SELECT paintings.name AS painting, painters.country, paintings.year
+    FROM painters
+    LEFT OUTER JOIN paintings
+    ON painters.id = paintings.painter_id
+    ORDER BY painters.country;
+
+--what are the five newest paintings on the list in decending order?
+SELECT painters.name, paintings.name AS painting, paintings.year
+    FROM painters
+    LEFT OUTER JOIN paintings
+    ON painters.id = paintings.painter_id
+    ORDER BY paintings.year desc
+    limit 5;
