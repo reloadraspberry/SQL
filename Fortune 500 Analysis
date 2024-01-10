@@ -64,7 +64,8 @@ CASE WHEN healthcare_benefits =1 THEN "Yes"
 ELSE "No" END AS "healthcare_provided"
 FROM fortune_companies
 GROUP BY healthcare_provided
-ORDER BY healthcare_provided desc;
+ORDER BY healthcare_provided desc
+;
 
 # What companies have over 150,000 employees *and* an employee tenture of over 5 years?
 SELECT industry, ROUND(AVG(revenue),1) as avg_revenue_billions
@@ -77,7 +78,7 @@ HAVING avg_revenue_billions>=200
 SELECT industry, ROUND(AVG(revenue)) AS avg_revenue
 FROM fortune_companies
 WHERE industry = "Telecommunications"
-
+;
 
 # Which company in the Manufacturing industry has the most paid days off, and what do they offer? 
 SELECT company_name, max(paid_time_off_days)
