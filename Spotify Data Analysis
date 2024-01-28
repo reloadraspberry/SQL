@@ -27,3 +27,20 @@ time_signature integer NOT NULL
 #Then I inserted the Spotify Data .csv into the table.
 
 #Next, I explored the data using the following SQL. 
+
+#1. What are the top 5 most danceable songs in the key of 8?
+
+SELECT track_name, 
+danceability
+FROM BIT_DB.Spotifydata
+WHERE song_key=8
+GROUP BY artist_name
+ORDER BY danceability desc 
+LIMIT 5
+
+#2. What is the average length of songs by Olivia Rodrigo?
+
+SELECT AVG(duration_ms) AS 'avg song length'
+FROM BIT_DB.Spotifydata
+WHERE artist_name='Olivia Rodrigo'  
+
